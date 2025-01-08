@@ -16,7 +16,7 @@ import StatsWidget from "../components/StatsWidget";
 import ProductTable from "../components/ProductTable";
 import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
-import EditProductModal from "../components/EditProduct";
+import EditProductModal from "../components/EditProductModal";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import { Product } from "../services/types/inventory.types";
 
