@@ -31,47 +31,49 @@ const AdminView = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Box p={3}>
-      <Typography variant="h4" gutterBottom>
-        Inventory Management
-      </Typography>
+    <Box sx={{ width: "100%", bgcolor: "#121212", minHeight: "100vh" }}>
+      <Box p={3}>
+        <Typography variant="h4" gutterBottom color="white">
+          Inventory Management
+        </Typography>
 
-      {/* Stats Widgets */}
-      <Grid container spacing={3} mb={3}>
-        <Grid item xs={3}>
-          <StatsWidget
-            title="Total Products"
-            value={stats.totalProducts}
-            icon="inventory"
-          />
+        {/* Stats Widgets */}
+        <Grid container spacing={3} mb={3}>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsWidget
+              title="Total Products"
+              value={stats.totalProducts}
+              icon="cart"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsWidget
+              title="Store Value"
+              value={`$${stats.totalStoreValue}`}
+              icon="money"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsWidget
+              title="Out of Stock"
+              value={stats.outOfStock}
+              icon="warning"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsWidget
+              title="Categories"
+              value={stats.totalCategories}
+              icon="category"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={3}>
-          <StatsWidget
-            title="Store Value"
-            value={`$${stats.totalStoreValue}`}
-            icon="attach_money"
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <StatsWidget
-            title="Out of Stock"
-            value={stats.outOfStock}
-            icon="warning"
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <StatsWidget
-            title="Categories"
-            value={stats.totalCategories}
-            icon="category"
-          />
-        </Grid>
-      </Grid>
 
-      {/* Products Table */}
-      <Paper>
-        <ProductTable products={products} isAdmin={true} />
-      </Paper>
+        {/* Products Table */}
+        <Paper sx={{ bgcolor: "#1E1E1E", boxShadow: "none" }}>
+          <ProductTable products={products} isAdmin={true} />
+        </Paper>
+      </Box>
     </Box>
   );
 };

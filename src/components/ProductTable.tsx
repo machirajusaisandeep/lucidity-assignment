@@ -62,6 +62,11 @@ const ProductTable: FC<ProductTableProps> = ({
                     size="small"
                     onClick={() => onEdit?.(product)}
                     disabled={!isAdmin || product.status === "disabled"}
+                    sx={{
+                      color: "#90EE90", // Light green
+                      "&:hover": { color: "#32CD32" }, // Darker green on hover
+                      "&.Mui-disabled": { color: "rgba(144, 238, 144, 0.3)" },
+                    }}
                   >
                     <EditIcon fontSize="small" />
                   </IconButton>
@@ -69,6 +74,11 @@ const ProductTable: FC<ProductTableProps> = ({
                     size="small"
                     onClick={() => onDelete?.(product.id)}
                     disabled={!isAdmin}
+                    sx={{
+                      color: "#FF6B6B", // Red
+                      "&:hover": { color: "#FF0000" }, // Darker red on hover
+                      "&.Mui-disabled": { color: "rgba(255, 107, 107, 0.3)" },
+                    }}
                   >
                     <DeleteIcon fontSize="small" />
                   </IconButton>
@@ -76,6 +86,11 @@ const ProductTable: FC<ProductTableProps> = ({
                     size="small"
                     onClick={() => onToggleVisibility?.(product.id)}
                     disabled={!isAdmin}
+                    sx={{
+                      color: "#BA55D3", // Purple
+                      "&:hover": { color: "#9400D3" }, // Darker purple on hover
+                      "&.Mui-disabled": { color: "rgba(186, 85, 211, 0.3)" },
+                    }}
                   >
                     <VisibilityIcon fontSize="small" />
                   </IconButton>
