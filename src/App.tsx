@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
-import AdminView from "./pages/AdminView";
+import Inventory from "./pages/Inventory";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Header from "./components/Header";
@@ -17,7 +17,7 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Header />
-        <AdminView />
+        <Inventory />
       </ThemeProvider>
     </Provider>
   );

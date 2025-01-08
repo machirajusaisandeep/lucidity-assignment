@@ -21,11 +21,13 @@ const LoadingState = () => {
                 height: "100%",
               }}
             >
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
+              <Box display="flex" alignItems="center" gap={2}>
+                <Skeleton
+                  variant="circular"
+                  width={40}
+                  height={40}
+                  sx={{ bgcolor: "rgba(255, 255, 255, 0.1)" }}
+                />
                 <Box>
                   <Skeleton
                     variant="text"
@@ -39,12 +41,6 @@ const LoadingState = () => {
                     sx={{ bgcolor: "rgba(255, 255, 255, 0.1)" }}
                   />
                 </Box>
-                <Skeleton
-                  variant="circular"
-                  width={40}
-                  height={40}
-                  sx={{ bgcolor: "rgba(255, 255, 255, 0.1)" }}
-                />
               </Box>
             </Box>
           </Grid>

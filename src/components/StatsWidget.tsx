@@ -34,7 +34,8 @@ const StatsWidget = ({ title, value, icon }: StatsWidgetProps) => {
         boxShadow: "none",
       }}
     >
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box display="flex" alignItems="center" gap={2}>
+        {getIcon()}
         <Box>
           <Typography variant="subtitle1" color="#A8A8A8" gutterBottom>
             {title}
@@ -43,7 +44,6 @@ const StatsWidget = ({ title, value, icon }: StatsWidgetProps) => {
             {value}
           </Typography>
         </Box>
-        {getIcon()}
       </Box>
     </Paper>
   );
