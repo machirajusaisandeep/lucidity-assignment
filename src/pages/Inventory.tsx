@@ -56,6 +56,9 @@ const AdminView = () => {
     fetchData();
   }, [dispatch]);
 
+  const handleEditClick = (product: Product) => {
+    setEditProduct(product);
+  };
   const handleEdit = (updatedProduct: Product) => {
     const value = inventoryService.calculateValue(
       updatedProduct.price,
@@ -145,7 +148,7 @@ const AdminView = () => {
         <Paper sx={{ bgcolor: "#1E1E1E", boxShadow: "none" }}>
           <ProductTable
             products={products}
-            onEdit={handleEdit}
+            onEdit={handleEditClick}
             onDelete={handleDeleteClick}
             onToggleVisibility={handleToggleVisibility}
           />
