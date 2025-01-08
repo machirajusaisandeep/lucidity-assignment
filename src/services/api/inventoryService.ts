@@ -2,10 +2,6 @@ import { Product, InventoryStats } from "../types/inventory.types";
 
 const INVENTORY_API = "https://dev-0tf0hinghgjl39z.api.raw-labs.com/inventory";
 
-const parsePrice = (price: string): number => {
-  return Number(price.replace("$", "")) || 0;
-};
-
 export const inventoryService = {
   getProducts: async (): Promise<Product[]> => {
     const response = await fetch(INVENTORY_API);
