@@ -1,50 +1,95 @@
-# React + TypeScript + Vite
+# Inventory Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based inventory stats application built as part of a coding challenge for Lucidity. This app allows admins to manage inventory and users to view inventory in a read-only mode.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application is live and can be accessed at:
+[Lucidity Inventory Stats App](https://lucidity-assignment-eight.vercel.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+### Admin View
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- View all products in a table.
+- **Edit Products**: Update product price and quantity via a modal. Value is auto caluclated from it.
+- **Delete Products**: Remove products from the inventory.
+- **Disable Products**: Mark products as disabled (row grayed out, actions disabled).
+- Stats of inventory metrics:
+  - **Total Products**
+  - **Total Store Value**
+  - **Out-of-Stock Products**
+  - **Number of Categories**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### User View
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Read-only access to inventory.
+- All action buttons are disabled.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Error State:
+
+- If the API request fails, an error message is displayed.
+
+### Loading State:
+
+- If the API request is in progress, a loading message is displayed.
+
+---
+
+## Tech Stack
+
+- **Frontend Framework**: [React](https://reactjs.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: TypeScript
+- **State Management**: Redux Toolkit
+- **UI Library**: Material UI
+- **API Requests**: Axios
+- **Hosting**: Vercel
+
+---
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Steps to Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/lucidity-assignment.git
+   cd lucidity-assignment
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
+
+---
+
+## API Reference
+
+The app fetches inventory data from the following endpoint:
+
+- **Endpoint**: `https://dev-0tf0hinghgjl39z.api.raw-labs.com/inventory`
+- **Method**: `GET`
+- Please do not refresh as `429: Too many requests error` will be thrown.
+
+---
+
+## Deployment
+
+The app is deployed on **Vercel**. Visit the live version here:
+[https://lucidity-assignment-eight.vercel.app/](https://lucidity-assignment-eight.vercel.app/)
