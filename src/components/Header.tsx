@@ -25,7 +25,7 @@ const Header = () => {
             admin
           </Typography>
           <Switch
-            checked={isAdmin}
+            checked={!isAdmin}
             onChange={() => dispatch(toggleUserMode())}
             sx={{
               "& .MuiSwitch-switchBase.Mui-checked": {

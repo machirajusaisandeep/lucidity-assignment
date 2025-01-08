@@ -14,6 +14,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Product } from "../services/types/inventory.types";
 
 interface ProductTableProps {
@@ -36,12 +37,78 @@ const ProductTable: FC<ProductTableProps> = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ color: "text.secondary" }}>Name</TableCell>
-            <TableCell sx={{ color: "text.secondary" }}>Category</TableCell>
-            <TableCell sx={{ color: "text.secondary" }}>Price</TableCell>
-            <TableCell sx={{ color: "text.secondary" }}>Quantity</TableCell>
-            <TableCell sx={{ color: "text.secondary" }}>Value</TableCell>
-            <TableCell sx={{ color: "text.secondary" }}>Actions</TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Name
+              </Box>
+            </TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Category
+              </Box>
+            </TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Price
+              </Box>
+            </TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Quantity
+              </Box>
+            </TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Value
+              </Box>
+            </TableCell>
+            <TableCell sx={{ color: "#d8f96c" }}>
+              <Box
+                sx={{
+                  backgroundColor: "background.paper",
+                  padding: "4px 8px",
+                  borderRadius: 1,
+                  display: "inline-block",
+                }}
+              >
+                Actions
+              </Box>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,9 +122,9 @@ const ProductTable: FC<ProductTableProps> = ({
             >
               <TableCell sx={{ color: "white" }}>{product.name}</TableCell>
               <TableCell sx={{ color: "white" }}>{product.category}</TableCell>
-              <TableCell sx={{ color: "white" }}>${product.price}</TableCell>
+              <TableCell sx={{ color: "white" }}>{product.price}</TableCell>
               <TableCell sx={{ color: "white" }}>{product.quantity}</TableCell>
-              <TableCell sx={{ color: "white" }}>${product.value}</TableCell>
+              <TableCell sx={{ color: "white" }}>{product.value}</TableCell>
               <TableCell>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <IconButton
@@ -74,18 +141,6 @@ const ProductTable: FC<ProductTableProps> = ({
                   </IconButton>
                   <IconButton
                     size="small"
-                    onClick={() => onDelete?.(product.id ?? 0)}
-                    disabled={!isAdmin}
-                    sx={{
-                      color: "#FF6B6B",
-                      "&:hover": { color: "#FF0000" },
-                      "&.Mui-disabled": { color: "rgba(255, 107, 107, 0.3)" },
-                    }}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
                     onClick={() => onToggleVisibility?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
@@ -95,7 +150,23 @@ const ProductTable: FC<ProductTableProps> = ({
                       "&.Mui-disabled": { color: "rgba(186, 85, 211, 0.3)" },
                     }}
                   >
-                    <VisibilityIcon fontSize="small" />
+                    {product.status === "disabled" ? (
+                      <VisibilityIcon fontSize="small" />
+                    ) : (
+                      <VisibilityOffIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => onDelete?.(product.id ?? 0)}
+                    disabled={!isAdmin}
+                    sx={{
+                      color: "#FF6B6B",
+                      "&:hover": { color: "#FF0000" },
+                      "&.Mui-disabled": { color: "rgba(255, 107, 107, 0.3)" },
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Box>
               </TableCell>
