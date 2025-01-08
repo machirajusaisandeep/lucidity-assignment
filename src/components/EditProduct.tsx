@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Product } from "../services/types/inventory.types";
+import { inventoryService } from "../services/api/inventoryService";
 
 interface EditProductModalProps {
   open: boolean;
@@ -37,6 +38,19 @@ const EditProductModal: FC<EditProductModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isValid) onSave(formData);
+  };
+
+  const handleFieldChange = (field: string, value: string) => {
+    const newFormData = { ...formData, [field]: value };
+
+    // Recalculate value when price or quantity changes
+    if (field === "price" || field === "quantity") {
+      const price = field === "price" ? value : formData.price;
+      const quantity = field === "quantity" ? Number(value) : formData.quantity;
+      newFormData.value = inventoryService.calculateValue(price, quantity);
+    }
+
+    setFormData(newFormData);
   };
 
   return (
@@ -85,9 +99,7 @@ const EditProductModal: FC<EditProductModalProps> = ({
                 key={field}
                 label={field.charAt(0).toUpperCase() + field.slice(1)}
                 value={formData[field as keyof Product]}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field]: e.target.value })
-                }
+                onChange={(e) => handleFieldChange(field, e.target.value)}
                 fullWidth
                 variant="outlined"
                 sx={{

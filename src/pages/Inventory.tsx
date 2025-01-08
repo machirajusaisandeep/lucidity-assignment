@@ -56,54 +56,45 @@ const AdminView = () => {
     fetchData();
   }, [dispatch]);
 
-  const handleEdit = (product: Product) => {
-    setEditProduct(product);
-  };
-
-  const handleEditSave = (updatedProduct: Product) => {
-    dispatch(updateProduct(updatedProduct));
+  const handleEdit = (updatedProduct: Product) => {
+    const value = inventoryService.calculateValue(
+      updatedProduct.price,
+      updatedProduct.quantity
+    );
+    const productWithValue = { ...updatedProduct, value };
+    dispatch(updateProduct(productWithValue));
     dispatch(
       updateStats(
-        inventoryService.calculateStats([
-          ...products.filter((p) => p.id !== updatedProduct.id),
-          updatedProduct,
-        ])
+        inventoryService.calculateStats(
+          products.map((p) =>
+            p.id === updatedProduct.id ? productWithValue : p
+          )
+        )
       )
     );
     setEditProduct(null);
   };
 
   const handleDelete = (id: number) => {
+    dispatch(deleteProduct(id));
+    const updatedProducts = products.filter((p) => p.id !== id);
+    dispatch(updateStats(inventoryService.calculateStats(updatedProducts)));
+    setDeleteConfirmation(null);
+  };
+
+  const handleDeleteClick = (id: number) => {
     setDeleteConfirmation(id);
   };
 
-  const handleConfirmDelete = () => {
-    if (deleteConfirmation) {
-      dispatch(deleteProduct(deleteConfirmation));
-      dispatch(
-        updateStats(
-          inventoryService.calculateStats(
-            products.filter((p) => p.id !== deleteConfirmation)
-          )
-        )
-      );
-      setDeleteConfirmation(null);
-    }
-  };
-
   const handleToggleVisibility = (id: number) => {
-    dispatch(toggleProductStatus(id));
+    const newStatus: "active" | "disabled" =
+      products.find((p) => p.id === id)?.status === "active"
+        ? "disabled"
+        : "active";
     const updatedProducts = products.map((p) =>
-      p.id === id
-        ? {
-            ...p,
-            status:
-              p.status === "active"
-                ? ("disabled" as const)
-                : ("active" as const),
-          }
-        : p
+      p.id === id ? { ...p, status: newStatus } : p
     );
+    dispatch(toggleProductStatus(id));
     dispatch(updateStats(inventoryService.calculateStats(updatedProducts)));
   };
 
@@ -112,7 +103,7 @@ const AdminView = () => {
   if (error) return <ErrorState message={error} onRetry={fetchData} />;
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "#121212", minHeight: "100vh" }}>
+    <Box sx={{ width: "100%", bgcolor: "#121212" }}>
       <Box p={3}>
         <Typography variant="h4" gutterBottom color="white">
           Inventory Stats
@@ -155,7 +146,7 @@ const AdminView = () => {
           <ProductTable
             products={products}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={handleDeleteClick}
             onToggleVisibility={handleToggleVisibility}
           />
         </Paper>
@@ -166,7 +157,7 @@ const AdminView = () => {
             open={!!editProduct}
             product={editProduct}
             onClose={() => setEditProduct(null)}
-            onSave={handleEditSave}
+            onSave={handleEdit}
           />
         )}
 
@@ -175,7 +166,9 @@ const AdminView = () => {
           open={!!deleteConfirmation}
           title="Delete Product"
           message="Are you sure you want to delete this product?"
-          onConfirm={handleConfirmDelete}
+          onConfirm={() =>
+            deleteConfirmation && handleDelete(deleteConfirmation)
+          }
           onCancel={() => setDeleteConfirmation(null)}
         />
       </Box>

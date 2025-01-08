@@ -18,20 +18,21 @@ export const inventoryService = {
   },
 
   calculateStats: (products: Product[]): InventoryStats => {
-    const activeProducts = products.filter((p) => p.status === "active");
-
+    const activeProducts = products.filter((p) => p.status !== "disabled");
     return {
       totalProducts: activeProducts.length,
-      totalStoreValue: activeProducts.reduce(
-        (sum, product) => sum + parsePrice(product.value),
-        0
-      ),
-      outOfStock: activeProducts.filter((product) => product.quantity === 0)
-        .length,
-      totalCategories: new Set(
-        activeProducts.map((product) => product.category)
-      ).size,
+      totalStoreValue: activeProducts.reduce((sum, p) => {
+        const price = parseFloat(p.price.replace("$", ""));
+        return sum + price * p.quantity;
+      }, 0),
+      outOfStock: activeProducts.filter((p) => p.quantity === 0).length,
+      totalCategories: new Set(activeProducts.map((p) => p.category)).size,
     };
+  },
+
+  calculateValue: (price: string, quantity: number): string => {
+    const numericPrice = parseFloat(price.replace("$", ""));
+    return `$${(numericPrice * quantity).toFixed(2)}`;
   },
 
   // Local operations (no API calls) - these can be converted to apis calls if needed
