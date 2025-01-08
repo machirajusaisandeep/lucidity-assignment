@@ -24,6 +24,16 @@ interface ProductTableProps {
   onToggleVisibility?: (id: number) => void;
 }
 
+const formatNumber = (value: string | number): string => {
+  // Remove any existing $ and commas, then parse
+  const num = Number(value.toString().replace(/[$,]/g, ""));
+  // Format with commas and 2 decimal places
+  return num.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 const ProductTable: FC<ProductTableProps> = ({
   products,
   onEdit,
@@ -122,9 +132,13 @@ const ProductTable: FC<ProductTableProps> = ({
             >
               <TableCell sx={{ color: "white" }}>{product.name}</TableCell>
               <TableCell sx={{ color: "white" }}>{product.category}</TableCell>
-              <TableCell sx={{ color: "white" }}>{product.price}</TableCell>
+              <TableCell sx={{ color: "white" }}>
+                {formatNumber(product.price)}
+              </TableCell>
               <TableCell sx={{ color: "white" }}>{product.quantity}</TableCell>
-              <TableCell sx={{ color: "white" }}>{product.value}</TableCell>
+              <TableCell sx={{ color: "white" }}>
+                {formatNumber(product.value)}
+              </TableCell>
               <TableCell>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <IconButton
