@@ -72,7 +72,7 @@ const ProductTable: FC<ProductTableProps> = ({
                   </IconButton>
                   <IconButton
                     size="small"
-                    onClick={() => onDelete?.(product.id)}
+                    onClick={() => onDelete?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
                       color: "#FF6B6B", // Red
@@ -84,7 +84,7 @@ const ProductTable: FC<ProductTableProps> = ({
                   </IconButton>
                   <IconButton
                     size="small"
-                    onClick={() => onToggleVisibility?.(product.id)}
+                    onClick={() => onToggleVisibility?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
                       color: "#BA55D3", // Purple

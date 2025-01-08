@@ -3,9 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { RootState, AppDispatch } from "../store";
 import { inventoryService } from "../services/api/inventoryService";
-import { setProducts, updateStats } from "../store/reducers/inventorySlice";
+import {
+  setProducts,
+  updateStats,
+  setError,
+  setLoading,
+} from "../store/reducers/inventorySlice";
 import StatsWidget from "../components/StatsWidget";
 import ProductTable from "../components/ProductTable";
+import LoadingState from "../components/LoadingState";
+import ErrorState from "../components/ErrorState";
 
 const AdminView = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,22 +20,34 @@ const AdminView = () => {
     (state: RootState) => state.inventory
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await inventoryService.getProducts();
-        dispatch(setProducts(data));
-        dispatch(updateStats(inventoryService.calculateStats(data)));
-      } catch (err) {
-        console.error("Failed to fetch products:", err);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      dispatch(setLoading(true));
+      const data = await inventoryService.getProducts();
+      dispatch(setProducts(data));
+      dispatch(updateStats(inventoryService.calculateStats(data)));
+      dispatch(setError(null));
+    } catch (err) {
+      dispatch(
+        setError(
+          err instanceof Error
+            ? "Please Notify Lucidity Backend - might be too many request : " +
+                err.message
+            : "Failed to fetch products"
+        )
+      );
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <LoadingState />;
+
+  if (error) return <ErrorState message={error} onRetry={fetchData} />;
 
   return (
     <Box sx={{ width: "100%", bgcolor: "#121212", minHeight: "100vh" }}>
