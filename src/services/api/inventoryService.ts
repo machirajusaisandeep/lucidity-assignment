@@ -34,7 +34,7 @@ export const inventoryService = {
     };
   },
 
-  // Local operations (no API calls)
+  // Local operations (no API calls) - these can be converted to apis calls if needed
   updateProduct: (products: Product[], updatedProduct: Product): Product[] => {
     const formattedProduct = {
       ...updatedProduct,
