@@ -7,6 +7,8 @@ A React-based inventory stats application built as part of a coding challenge fo
 The application is live and can be accessed at:
 [Lucidity Inventory Stats App](https://lucidity-assignment-eight.vercel.app/)
 
+![Lucidity Inventory Stats App](./public/lucidity-inventory-stats.png)
+
 ---
 
 ## Features
