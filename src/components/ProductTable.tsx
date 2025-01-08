@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Product } from "../services/types/inventory.types";
+import { formatNumber } from "../utils/inventory";
 
 interface ProductTableProps {
   products: Product[];
@@ -23,16 +24,6 @@ interface ProductTableProps {
   onDelete?: (id: number) => void;
   onToggleVisibility?: (id: number) => void;
 }
-
-const formatNumber = (value: string | number): string => {
-  // Remove any existing $ and commas, then parse
-  const num = Number(value.toString().replace(/[$,]/g, ""));
-  // Format with commas and 2 decimal places
-  return num.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-};
 
 const ProductTable: FC<ProductTableProps> = ({
   products,

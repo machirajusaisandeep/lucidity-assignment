@@ -20,7 +20,7 @@ import EditProductModal from "../components/EditProduct";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import { Product } from "../services/types/inventory.types";
 
-const AdminView = () => {
+const Inventory = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { products, stats, loading, error } = useSelector(
     (state: RootState) => state.inventory
@@ -179,4 +179,4 @@ const AdminView = () => {
   );
 };
 
-export default AdminView;
+export default Inventory;
