@@ -47,7 +47,6 @@ The application is live and can be accessed at:
 - **Language**: TypeScript
 - **State Management**: Redux Toolkit
 - **UI Library**: Material UI
-- **API Requests**: Axios
 - **Hosting**: Vercel
 
 ---
