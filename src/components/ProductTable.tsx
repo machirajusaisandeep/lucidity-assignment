@@ -50,13 +50,14 @@ const ProductTable: FC<ProductTableProps> = ({
               key={product.id}
               sx={{
                 opacity: product.status === "disabled" ? 0.5 : 1,
+                transition: "opacity 0.3s ease",
               }}
             >
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.category}</TableCell>
-              <TableCell>{product.price}</TableCell>
-              <TableCell>{product.quantity}</TableCell>
-              <TableCell>{product.value}</TableCell>
+              <TableCell sx={{ color: "white" }}>{product.name}</TableCell>
+              <TableCell sx={{ color: "white" }}>{product.category}</TableCell>
+              <TableCell sx={{ color: "white" }}>${product.price}</TableCell>
+              <TableCell sx={{ color: "white" }}>{product.quantity}</TableCell>
+              <TableCell sx={{ color: "white" }}>${product.value}</TableCell>
               <TableCell>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <IconButton
@@ -88,7 +89,8 @@ const ProductTable: FC<ProductTableProps> = ({
                     onClick={() => onToggleVisibility?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
-                      color: "#BA55D3",
+                      color:
+                        product.status === "disabled" ? "#BA55D3" : "#9400D3",
                       "&:hover": { color: "#9400D3" },
                       "&.Mui-disabled": { color: "rgba(186, 85, 211, 0.3)" },
                     }}

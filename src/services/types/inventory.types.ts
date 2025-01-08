@@ -1,13 +1,12 @@
 export interface Product {
+  id?: number;
   name: string;
   category: string;
-  value: string;
-  quantity: number;
   price: string;
-  id?: number;
+  quantity: number;
+  value: string;
   status?: "active" | "disabled";
 }
-
 export interface InventoryStats {
   totalProducts: number;
   totalStoreValue: number;
