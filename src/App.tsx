@@ -3,6 +3,7 @@ import { store } from "./store";
 import AdminView from "./pages/AdminView";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Header from "./components/Header";
 
 const darkTheme = createTheme({
   palette: {
@@ -15,6 +16,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
+        <Header />
         <AdminView />
       </ThemeProvider>
     </Provider>

@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import {
   Table,
   TableBody,
@@ -16,7 +18,6 @@ import { Product } from "../services/types/inventory.types";
 
 interface ProductTableProps {
   products: Product[];
-  isAdmin: boolean;
   onEdit?: (product: Product) => void;
   onDelete?: (id: number) => void;
   onToggleVisibility?: (id: number) => void;
@@ -24,14 +25,15 @@ interface ProductTableProps {
 
 const ProductTable: FC<ProductTableProps> = ({
   products,
-  isAdmin,
   onEdit,
   onDelete,
   onToggleVisibility,
 }) => {
+  const isAdmin = useSelector((state: RootState) => state.user.isAdmin);
+
   return (
-    <TableContainer sx={{ bgcolor: "background.paper", borderRadius: 1 }}>
-      <Table sx={{ minWidth: 650 }}>
+    <TableContainer>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell sx={{ color: "text.secondary" }}>Name</TableCell>
@@ -47,7 +49,6 @@ const ProductTable: FC<ProductTableProps> = ({
             <TableRow
               key={product.id}
               sx={{
-                "&:last-child td, &:last-child th": { border: 0 },
                 opacity: product.status === "disabled" ? 0.5 : 1,
               }}
             >
@@ -63,8 +64,8 @@ const ProductTable: FC<ProductTableProps> = ({
                     onClick={() => onEdit?.(product)}
                     disabled={!isAdmin || product.status === "disabled"}
                     sx={{
-                      color: "#90EE90", // Light green
-                      "&:hover": { color: "#32CD32" }, // Darker green on hover
+                      color: "#90EE90",
+                      "&:hover": { color: "#32CD32" },
                       "&.Mui-disabled": { color: "rgba(144, 238, 144, 0.3)" },
                     }}
                   >
@@ -75,8 +76,8 @@ const ProductTable: FC<ProductTableProps> = ({
                     onClick={() => onDelete?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
-                      color: "#FF6B6B", // Red
-                      "&:hover": { color: "#FF0000" }, // Darker red on hover
+                      color: "#FF6B6B",
+                      "&:hover": { color: "#FF0000" },
                       "&.Mui-disabled": { color: "rgba(255, 107, 107, 0.3)" },
                     }}
                   >
@@ -87,8 +88,8 @@ const ProductTable: FC<ProductTableProps> = ({
                     onClick={() => onToggleVisibility?.(product.id ?? 0)}
                     disabled={!isAdmin}
                     sx={{
-                      color: "#BA55D3", // Purple
-                      "&:hover": { color: "#9400D3" }, // Darker purple on hover
+                      color: "#BA55D3",
+                      "&:hover": { color: "#9400D3" },
                       "&.Mui-disabled": { color: "rgba(186, 85, 211, 0.3)" },
                     }}
                   >

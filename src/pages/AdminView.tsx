@@ -50,7 +50,7 @@ const AdminView = () => {
   if (error) return <ErrorState message={error} onRetry={fetchData} />;
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "#121212", minHeight: "100vh" }}>
+    <Box sx={{ width: "100%", bgcolor: "#121212" }}>
       <Box p={3}>
         <Typography variant="h4" gutterBottom color="white">
           Inventory Management
@@ -90,7 +90,7 @@ const AdminView = () => {
 
         {/* Products Table */}
         <Paper sx={{ bgcolor: "#1E1E1E", boxShadow: "none" }}>
-          <ProductTable products={products} isAdmin={true} />
+          <ProductTable products={products} />
         </Paper>
       </Box>
     </Box>
